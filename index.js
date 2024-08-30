@@ -16,14 +16,14 @@ const noop = () => {}
 
 class Analytics {
   /**
-   * Initialize a new `Analytics` with your Segment project's `writeKey` and an
-   * optional dictionary of `options`.
+   * Initialize a new `Analytics` with your Meergo project's `writeKey` and
+   * `endpoint` and an optional dictionary of `options`.
    *
    * @param {String} writeKey
+   * @param {String} endpoint (default: 'https://api.example.com')
    * @param {Object} [options] (optional)
    *   @property {Number} [flushAt] (default: 20)
    *   @property {Number} [flushInterval] (default: 10000)
-   *   @property {String} [host] (default: 'https://api.segment.io')
    *   @property {Boolean} [enable] (default: true)
    *   @property {Object} [axiosConfig] (optional)
    *   @property {Object} [axiosInstance] (default: axios.create(options.axiosConfig))
@@ -32,15 +32,15 @@ class Analytics {
    *   @property {Function} [errorHandler] (optional)
    */
 
-  constructor (writeKey, options) {
+  constructor (writeKey, endpoint, options) {
     options = options || {}
 
-    assert(writeKey, 'You must pass your Segment project\'s write key.')
+    assert(writeKey, 'You must pass your Meergo project\'s write key.')
 
     this.queue = []
     this.writeKey = writeKey
-    this.host = removeSlash(options.host || 'https://api.segment.io')
-    this.path = removeSlash(options.path || '/v1/batch')
+    this.endpoint = removeSlash(endpoint || 'https://api.example.com')
+    this.path = removeSlash(options.path || '/b')
     let axiosInstance = options.axiosInstance
     if (axiosInstance == null) {
       axiosInstance = axios.create(options.axiosConfig)
@@ -196,7 +196,6 @@ class Analytics {
       // We md5 the messaage to add more randomness. This is primarily meant
       // for use in the browser where the uuid package falls back to Math.random()
       // which is not a great source of randomness.
-      // Borrowed from analytics.js (https://github.com/segment-integrations/analytics.js-integration-segmentio/blob/a20d2a2d222aeb3ab2a8c7e72280f1df2618440e/lib/index.js#L255-L256).
       message.messageId = `node-${md5(JSON.stringify(message))}-${uuid()}`
     }
 
@@ -300,7 +299,7 @@ class Analytics {
     }
 
     return (this.pendingFlush = this.axiosInstance
-      .post(`${this.host}${this.path}`, data, req)
+      .post(`${this.endpoint}${this.path}`, data, req)
       .then(() => {
         done()
         return Promise.resolve(data)

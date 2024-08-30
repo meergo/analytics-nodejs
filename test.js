@@ -21,12 +21,8 @@ const port = 4063
 const separateAxiosClientPort = 4064
 const retryCount = 5
 
-const createClient = options => {
-  options = Object.assign({
-    host: `http://localhost:${port}`
-  }, options)
-
-  const client = new Analytics('key', options)
+const createClient = (options, endpoint) => {
+  const client = new Analytics('key', endpoint || `http://localhost:${port}`, options)
   client.flushed = true
 
   return client
@@ -36,7 +32,7 @@ test.before.cb(t => {
   let count = 0
   express()
     .use(bodyParser.json())
-    .post('/v1/batch', (req, res) => {
+    .post('/b', (req, res) => {
       const batch = req.body.batch
 
       const { name: writeKey } = auth(req)
@@ -90,7 +86,7 @@ test('expose a constructor', t => {
 })
 
 test('require a write key', t => {
-  t.throws(() => new Analytics(), 'You must pass your Segment project\'s write key.')
+  t.throws(() => new Analytics(), 'You must pass your Meergo project\'s write key.')
 })
 
 test('create a queue', t => {
@@ -103,25 +99,24 @@ test('default options', t => {
   const client = new Analytics('key')
 
   t.is(client.writeKey, 'key')
-  t.is(client.host, 'https://api.segment.io')
+  t.is(client.endpoint, 'https://api.example.com')
   t.is(client.flushAt, 20)
   t.is(client.flushInterval, 10000)
 })
 
-test('remove trailing slashes from `host`', t => {
-  const client = new Analytics('key', { host: 'http://google.com///' })
+test('remove trailing slashes from `endpoint`', t => {
+  const client = new Analytics('key', 'http://google.com///')
 
-  t.is(client.host, 'http://google.com')
+  t.is(client.endpoint, 'http://google.com')
 })
 
 test('overwrite defaults with options', t => {
-  const client = new Analytics('key', {
-    host: 'a',
+  const client = new Analytics('key', 'a', {
     flushAt: 1,
     flushInterval: 2
   })
 
-  t.is(client.host, 'a')
+  t.is(client.endpoint, 'a')
   t.is(client.flushAt, 1)
   t.is(client.flushInterval, 2)
 })
@@ -695,12 +690,13 @@ test('ensure we can pass our own axios instance', async t => {
   const axios = require('axios')
   const myAxiosInstance = axios.create()
   const stubAxiosPost = stub(myAxiosInstance, 'post').resolves()
-  const client = createClient({
-    axiosInstance: myAxiosInstance,
-    host: 'https://my-dummy-host.com',
-    path: '/test/path'
-  })
-
+  const client = createClient(
+    {
+      axiosInstance: myAxiosInstance,
+      path: '/test/path'
+    }, 
+    'https://my-dummy-host.com'
+  )
   const callback = spy()
   client.queue = [
     {

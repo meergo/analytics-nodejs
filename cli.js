@@ -9,9 +9,9 @@ const toObject = str => JSON.parse(str)
 
 program
   .version(pkg.version)
-  .option('-w, --writeKey <key>', 'the Segment write key to use')
-  .option('-h, --host <host>', 'the Segment API hostname to use')
-  .option('-t, --type <type>', 'the Segment message type')
+  .option('-w, --writeKey <key>', 'the Meergo write key to use')
+  .option('-e, --endpoint <endpoint>', 'the Meergo API endpoint to use')
+  .option('-t, --type <type>', 'the Meergo message type')
 
   .option('-u, --userId <id>', 'the user id to send the event as')
   .option('-a, --anonymousId <id>', 'the anonymous user id to send the event as')
@@ -33,7 +33,7 @@ if (program.args.length !== 0) {
 }
 
 const writeKey = program.writeKey
-const host = program.host
+const endpoint = program.endpoint
 const type = program.type
 
 const userId = program.userId
@@ -49,7 +49,7 @@ const groupId = program.groupId
 const previousId = program.previousId
 
 const run = (method, args) => {
-  const analytics = new Analytics(writeKey, { host, flushAt: 1 })
+  const analytics = new Analytics(writeKey, endpoint, { flushAt: 1 })
   analytics[method](args, err => {
     if (err) {
       console.error(err.stack)
