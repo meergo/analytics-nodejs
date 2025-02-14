@@ -2,7 +2,6 @@ import Sinon, { spy, stub } from 'sinon'
 import bodyParser from 'body-parser'
 import express from 'express'
 import delay from 'delay'
-import auth from 'basic-auth'
 import test from 'ava'
 import Analytics from '.'
 import { version } from './package'
@@ -22,7 +21,7 @@ const separateAxiosClientPort = 4064
 const retryCount = 5
 
 const createClient = (options, endpoint) => {
-  const client = new Analytics('key', endpoint || `http://localhost:${port}`, options)
+  const client = new Analytics('key', endpoint || `http://localhost:${port}/api/v1/events`, options)
   client.flushed = true
 
   return client
@@ -32,11 +31,12 @@ test.before.cb(t => {
   let count = 0
   express()
     .use(bodyParser.json())
-    .post('/b', (req, res) => {
+    .post('/api/v1/events', (req, res) => {
       const batch = req.body.batch
 
-      const { name: writeKey } = auth(req)
-      if (!writeKey) {
+      const authorization = req.headers['authorization']
+      const m = authorization.match(/^Bearer\s(.+)$/)
+      if (!m) {
         return res.status(400).json({
           error: { message: 'missing write key' }
         })
@@ -99,15 +99,9 @@ test('default options', t => {
   const client = new Analytics('key')
 
   t.is(client.writeKey, 'key')
-  t.is(client.endpoint, 'https://api.example.com')
+  t.is(client.endpoint, 'https://example.com/api/v1/events')
   t.is(client.flushAt, 20)
   t.is(client.flushInterval, 10000)
-})
-
-test('remove trailing slashes from `endpoint`', t => {
-  const client = new Analytics('key', 'http://google.com///')
-
-  t.is(client.endpoint, 'http://google.com')
 })
 
 test('overwrite defaults with options', t => {
@@ -693,9 +687,8 @@ test('ensure we can pass our own axios instance', async t => {
   const client = createClient(
     {
       axiosInstance: myAxiosInstance,
-      path: '/test/path'
     }, 
-    'https://my-dummy-host.com'
+    'https://my-dummy-host.com/test/path'
   )
   const callback = spy()
   client.queue = [
