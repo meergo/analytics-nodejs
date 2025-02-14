@@ -1,7 +1,6 @@
 'use strict'
 
 const assert = require('assert')
-const removeSlash = require('remove-trailing-slash')
 const looselyValidate = require('@segment/loosely-validate-event')
 const axios = require('axios')
 const axiosRetry = require('axios-retry')
@@ -20,7 +19,7 @@ class Analytics {
    * `endpoint` and an optional dictionary of `options`.
    *
    * @param {String} writeKey
-   * @param {String} endpoint (default: 'https://api.example.com')
+   * @param {String} endpoint (default: 'https://example.com/api/v1/events')
    * @param {Object} [options] (optional)
    *   @property {Number} [flushAt] (default: 20)
    *   @property {Number} [flushInterval] (default: 10000)
@@ -39,8 +38,7 @@ class Analytics {
 
     this.queue = []
     this.writeKey = writeKey
-    this.endpoint = removeSlash(endpoint || 'https://api.example.com')
-    this.path = removeSlash(options.path || '/b')
+    this.endpoint = endpoint || 'https://example.com/api/v1/events'
     let axiosInstance = options.axiosInstance
     if (axiosInstance == null) {
       axiosInstance = axios.create(options.axiosConfig)
@@ -278,20 +276,18 @@ class Analytics {
       })
     }
 
+    const req = {
+      headers: {
+        Authorization: 'Bearer '+this.writeKey
+      }
+    }
+
     // Don't set the user agent if we're on a browser. The latest spec allows
     // the User-Agent header (see https://fetch.spec.whatwg.org/#terminology-headers
     // and https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/setRequestHeader),
     // but browsers such as Chrome and Safari have not caught up.
-    const headers = {}
     if (typeof window === 'undefined') {
-      headers['user-agent'] = `analytics-node/${version}`
-    }
-
-    const req = {
-      auth: {
-        username: this.writeKey
-      },
-      headers
+      req.headers['user-agent'] = `analytics-node/${version}`
     }
 
     if (this.timeout) {
@@ -299,7 +295,7 @@ class Analytics {
     }
 
     return (this.pendingFlush = this.axiosInstance
-      .post(`${this.endpoint}${this.path}`, data, req)
+      .post(this.endpoint, data, req)
       .then(() => {
         done()
         return Promise.resolve(data)
