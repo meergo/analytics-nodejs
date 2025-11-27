@@ -1,6 +1,6 @@
 {
   "name": "meergo-analytics-nodejs",
-  "version": "6.2.0",
+  "version": "0.0.1",
   "description": "The hassle-free way to integrate analytics into any Node.js application",
   "license": "MIT",
   "engines": {
