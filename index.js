@@ -3,7 +3,7 @@
 const assert = require('assert')
 const looselyValidate = require('@segment/loosely-validate-event')
 const axios = require('axios')
-const axiosRetry = require('axios-retry')
+const axiosRetry = require('axios-retry').default
 const ms = require('ms')
 const { v4: uuid } = require('uuid')
 const md5 = require('md5')
