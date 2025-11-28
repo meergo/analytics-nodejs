@@ -10,7 +10,7 @@
 		"import": "./index.js"
 	},
   "engines": {
-    "node": ">=4"
+    "node": ">=18"
   },
   "scripts": {
     "test": "ava"
