@@ -4,6 +4,11 @@
   "type": "module",
   "description": "The hassle-free way to integrate analytics into any Node.js application",
   "license": "MIT",
+	"main": "index.cjs",
+	"exports": {
+		"require": "./index.cjs",
+		"import": "./index.js"
+	},
   "engines": {
     "node": ">=4"
   },
@@ -11,6 +16,7 @@
     "test": "ava"
   },
   "files": [
+    "index.cjs",
     "index.js"
   ],
   "dependencies": {
