@@ -1,14 +1,14 @@
 'use strict'
 
-const assert = require('assert')
-const looselyValidate = require('@segment/loosely-validate-event')
-const axios = require('axios')
-const axiosRetry = require('axios-retry').default
-const ms = require('ms')
-const { v4: uuid } = require('uuid')
-const md5 = require('md5')
-const version = require('./package.json').version
-const isString = require('lodash.isstring')
+import assert from 'assert'
+import looselyValidate from '@segment/loosely-validate-event'
+import axios from 'axios'
+import axiosRetry from 'axios-retry'
+import ms from 'ms'
+import { v4 as uuid } from 'uuid'
+import md5 from 'md5'
+import pkg from './package.json' with { type: 'json' };
+import isString from 'lodash.isstring'
 
 const setImmediate = global.setImmediate || process.nextTick.bind(process)
 const noop = () => {}
@@ -178,7 +178,7 @@ class Analytics {
     message.context = Object.assign({
       library: {
         name: 'analytics-nodejs',
-        version
+        version: pkg.version,
       }
     }, message.context)
 
@@ -287,7 +287,7 @@ class Analytics {
     // and https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest/setRequestHeader),
     // but browsers such as Chrome and Safari have not caught up.
     if (typeof window === 'undefined') {
-      req.headers['user-agent'] = `analytics-nodejs/${version}`
+      req.headers['user-agent'] = `analytics-nodejs/${pkg.version}`
     }
 
     if (this.timeout) {
@@ -342,4 +342,4 @@ class Analytics {
   }
 }
 
-module.exports = Analytics
+export default Analytics
