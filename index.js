@@ -15,7 +15,7 @@ const noop = () => {}
 
 class Analytics {
   /**
-   * Initialize a new `Analytics` with your Meergo project's `writeKey` and
+   * Initialize a new `Analytics` with your Meergo `writeKey` and
    * `endpoint` and an optional dictionary of `options`.
    *
    * @param {String} writeKey
@@ -34,7 +34,7 @@ class Analytics {
   constructor (writeKey, endpoint, options) {
     options = options || {}
 
-    assert(writeKey, 'You must pass your Meergo project\'s write key.')
+    assert(writeKey, 'You must pass your Meergo write key.')
 
     this.queue = []
     this.writeKey = writeKey
