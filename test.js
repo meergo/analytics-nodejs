@@ -30,7 +30,8 @@ const createClient = (options, endpoint) => {
 
 let server;
 
-test.before(t => {
+test.before(async t => {
+  console.log("Initializing tests...");
   let count = 0
   server = express()
     .use(bodyParser.json())
@@ -77,7 +78,9 @@ test.before(t => {
 
       res.json({})
     })
-    .listen(port, t.end)
+    await new Promise(resolve => {
+      server = server.listen(port, resolve);
+    })
 })
 
 test.after.always(() => {
