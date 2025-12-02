@@ -3,10 +3,10 @@
   "version": "0.0.1",
   "description": "Node.js SDK for sending events to the Meergo Customer Data Platform (CDP)",
   "main": "index.cjs",
-	"exports": {
-		"require": "./index.cjs",
-		"import": "./index.js"
-	},
+  "exports": {
+    "require": "./index.cjs",
+    "import": "./index.js"
+  },
   "engines": {
     "node": ">=18"
   },
@@ -37,7 +37,7 @@
   },
   "license": "MIT",
   "repository": {
-		"type": "git",
-		"url": "https://github.com/meergo/analytics-nodejs.git"
-	}
+    "type": "git",
+    "url": "https://github.com/meergo/analytics-nodejs.git"
+  }
 }
