@@ -29,6 +29,6 @@ Refer to the Meergo events documentation for more information on the supported e
 
 The Meergo Node.js SDK is released under the [MIT license](License.md).
 
-Copyright &copy; 2024 Open2b
+Copyright &copy; 2025 Open2b
 
 Copyright &copy; 2017 Segment Inc. \<friends@segment.com\>
