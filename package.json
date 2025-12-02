@@ -1,10 +1,8 @@
 {
-  "name": "meergo-analytics-nodejs",
+  "name": "@meergo/nodejs-sdk",
   "version": "0.0.1",
-  "type": "module",
-  "description": "The hassle-free way to integrate analytics into any Node.js application",
-  "license": "MIT",
-	"main": "index.cjs",
+  "description": "Node.js SDK for sending events to the Meergo Customer Data Platform (CDP)",
+  "main": "index.cjs",
 	"exports": {
 		"require": "./index.cjs",
 		"import": "./index.js"
@@ -19,6 +17,7 @@
     "index.cjs",
     "index.js"
   ],
+  "type": "module",
   "dependencies": {
     "@segment/loosely-validate-event": "2.0.0",
     "axios": "1.13.2",
@@ -35,5 +34,10 @@
     "delay": "7.0.0",
     "express": "5.1.0",
     "sinon": "21.0.0"
-  }
+  },
+  "license": "MIT",
+  "repository": {
+		"type": "git",
+		"url": "https://github.com/meergo/analytics-nodejs.git"
+	}
 }
