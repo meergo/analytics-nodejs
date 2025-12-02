@@ -32,6 +32,11 @@ let server;
 
 test.before(async t => {
   console.log("Initializing tests...");
+
+  // Increase the timeout of the "before" hook to support the server
+  // initialization.
+  t.timeout(20000); 
+
   let count = 0
   server = express()
     .use(bodyParser.json())
