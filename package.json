@@ -1,6 +1,6 @@
 {
   "name": "@meergo/nodejs-sdk",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Node.js SDK for sending events to the Meergo Customer Data Platform (CDP)",
   "main": "index.cjs",
   "exports": {
