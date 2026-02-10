@@ -22,7 +22,7 @@ const separateAxiosClientPort = 4064
 const retryCount = 5
 
 const createClient = (options, endpoint) => {
-  const client = new Analytics('key', endpoint || `http://localhost:${port}/api/v1/events`, options)
+  const client = new Analytics('key', endpoint || `http://localhost:${port}/v1/events`, options)
   client.flushed = true
 
   return client
@@ -40,7 +40,7 @@ test.before(async t => {
   let count = 0
   server = express()
     .use(bodyParser.json())
-    .post('/api/v1/events', (req, res) => {
+    .post('/v1/events', (req, res) => {
       const batch = req.body.batch
 
       const authorization = req.headers['authorization']
@@ -113,7 +113,7 @@ test('default options', t => {
   const client = new Analytics('key')
 
   t.is(client.writeKey, 'key')
-  t.is(client.endpoint, 'https://example.com/api/v1/events')
+  t.is(client.endpoint, 'https://example.com/v1/events')
   t.is(client.flushAt, 20)
   t.is(client.flushInterval, 10000)
 })

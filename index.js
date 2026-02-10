@@ -19,7 +19,7 @@ class Analytics {
    * `endpoint` and an optional dictionary of `options`.
    *
    * @param {String} writeKey
-   * @param {String} endpoint (default: 'https://example.com/api/v1/events')
+   * @param {String} endpoint (default: 'https://example.com/v1/events')
    * @param {Object} [options] (optional)
    *   @property {Number} [flushAt] (default: 20)
    *   @property {Number} [flushInterval] (default: 10000)
@@ -38,7 +38,7 @@ class Analytics {
 
     this.queue = []
     this.writeKey = writeKey
-    this.endpoint = endpoint || 'https://example.com/api/v1/events'
+    this.endpoint = endpoint || 'https://example.com/v1/events'
     let axiosInstance = options.axiosInstance
     if (axiosInstance == null) {
       axiosInstance = axios.create(options.axiosConfig)
