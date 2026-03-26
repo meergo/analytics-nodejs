@@ -1,6 +1,6 @@
 {
   "name": "@krenalis/nodejs-sdk",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Node.js SDK for sending events to the Krenalis Customer Data Platform (CDP)",
   "main": "index.cjs",
   "exports": {
