@@ -16,8 +16,14 @@ import Analytics from '@meergo/nodejs-sdk';
 const client = new Analytics('<event write key>', '<endpoint>');
 
 client.track({
-  event: 'event name',
-  userId: 'user id'
+    event: 'Workout Completed',
+    userId: "user-123",
+    properties: {
+        workout_type: 'Cardio',
+        duration_minutes: 45,
+        calories_burned: 380,
+        device: 'Smartwatch'
+    }
 });
 ```
 

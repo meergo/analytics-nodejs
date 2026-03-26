@@ -38,14 +38,13 @@ const client = new Analytics(
     }
 );
 
-client.identify({
-    anonymousId: "ac3496a8-0782-4173-856f-2f7dd37d7f14",   
-    userId: "703991475",
-    traits: {
-        "email": "emily.johnson@example.com",
-        "plan": "Enterprise",
-        "company": "Acme Corp",
-        "jobTitle": "Product Manager",
-        "country": "United States"
+client.track({
+    event: 'Workout Completed',
+    userId: "user-123",
+    properties: {
+        workout_type: 'Cardio',
+        duration_minutes: 45,
+        calories_burned: 380,
+        device: 'Smartwatch'
     }
 });
