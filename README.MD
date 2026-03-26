@@ -1,17 +1,17 @@
-# Meergo Node.js SDK
+# Krenalis Node.js SDK
 
-The Meergo Node.js SDK lets you send customer event data from your Node applications to your specified destinations.
+The Krenalis Node.js SDK lets you send customer event data from your Node applications to your specified destinations.
 
 ## SDK setup requirements
 
-- Set up a Meergo account.
+- Set up a Krenalis account.
 - Set up a Node source in the dashboard.
 - Copy the event write key and the endpoint.
 
 ## Using the SDK
 
 ```js
-import Analytics from '@meergo/nodejs-sdk';
+import Analytics from '@krenalis/nodejs-sdk';
 
 const client = new Analytics('<event write key>', '<endpoint>');
 
@@ -29,11 +29,11 @@ client.track({
 
 ## Sending events
 
-Refer to the Meergo events documentation for more information on the supported event types.
+Refer to the Krenalis events documentation for more information on the supported event types.
 
 ## License
 
-The Meergo Node.js SDK is released under the [MIT license](License.md).
+The Krenalis Node.js SDK is released under the [MIT license](License.md).
 
 Copyright &copy; 2026 Open2b
 

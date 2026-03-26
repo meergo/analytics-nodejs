@@ -1,7 +1,7 @@
 {
-  "name": "@meergo/nodejs-sdk",
+  "name": "@krenalis/nodejs-sdk",
   "version": "0.0.2",
-  "description": "Node.js SDK for sending events to the Meergo Customer Data Platform (CDP)",
+  "description": "Node.js SDK for sending events to the Krenalis Customer Data Platform (CDP)",
   "main": "index.cjs",
   "exports": {
     "require": "./index.cjs",
@@ -38,7 +38,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/meergo/analytics-nodejs.git"
+    "url": "git+https://github.com/krenalis/analytics-nodejs.git"
   },
   "publishConfig": {
     "access": "public"

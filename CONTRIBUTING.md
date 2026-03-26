@@ -1,6 +1,6 @@
 # Contributing
 
-This file contains information useful for contributing to the Meergo Node.js SDK.
+This file contains information useful for contributing to the Krenalis Node.js SDK.
 
 ## Testing the SDK
 
@@ -32,9 +32,9 @@ To run the sample application:
     npm install
     ```
 
-1. In `sample.js`, set the `WRITE_KEY` and `ENDPOINT` constants using values from a Meergo Node.js source.
+1. In `sample.js`, set the `WRITE_KEY` and `ENDPOINT` constants using values from a Krenalis Node.js source.
 
-1. If you are running the sample against a local Meergo server with a self-signed certificate, the sample application needs to trust the certificate authority (CA). For this purpose, before running the application:
+1. If you are running the sample against a local Krenalis server with a self-signed certificate, the sample application needs to trust the certificate authority (CA). For this purpose, before running the application:
 
    - **Option 1: Set the `CA_PATH` environment variable** to point to the root CA used by mkcert or any other self-signed certificate authority. For example, on Linux/macOS:
 
@@ -60,4 +60,4 @@ To run the sample application:
     node sample/sample.js
     ```
 
-1. You should see new logged events in the event debugger of the Meergo Node.js source.
+1. You should see new logged events in the event debugger of the Krenalis Node.js source.

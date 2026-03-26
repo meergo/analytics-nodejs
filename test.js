@@ -100,7 +100,7 @@ test('expose a constructor', t => {
 })
 
 test('require a write key', t => {
-  t.throws(() => new Analytics(), { message: 'You must pass your Meergo write key.' })
+  t.throws(() => new Analytics(), { message: 'You must pass your Krenalis write key.' })
 })
 
 test('create a queue', t => {

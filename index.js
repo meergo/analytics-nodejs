@@ -15,7 +15,7 @@ const noop = () => {}
 
 class Analytics {
   /**
-   * Initialize a new `Analytics` with your Meergo `writeKey` and
+   * Initialize a new `Analytics` with your Krenalis `writeKey` and
    * `endpoint` and an optional dictionary of `options`.
    *
    * @param {String} writeKey
@@ -34,7 +34,7 @@ class Analytics {
   constructor (writeKey, endpoint, options) {
     options = options || {}
 
-    assert(writeKey, 'You must pass your Meergo write key.')
+    assert(writeKey, 'You must pass your Krenalis write key.')
 
     this.queue = []
     this.writeKey = writeKey
